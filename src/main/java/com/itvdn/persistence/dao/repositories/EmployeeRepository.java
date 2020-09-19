@@ -1,0 +1,21 @@
+package com.itvdn.persistence.dao.repositories;
+
+import com.itvdn.persistence.model.Employee;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+//import org.springframework.transaction.annotation.Transactional;
+
+//@Repository
+//@Transactional
+public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+    List<Employee> findEmployeeByName(String name);
+
+    List<Employee> findEmployeeByNameAndPosition(String name, String position);
+
+    @Query("select e from Employee e where e.name= :name and e.phone= :phone")
+    List<Employee> getPhone(@Param("name") String name, @Param("phone") String phone);
+}
